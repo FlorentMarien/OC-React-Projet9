@@ -20,6 +20,25 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
+  let tampon = 0;
+  let x = 0;
+    while(x < data.length){
+      console.log(x)
+      if(data[x+1] !== undefined){
+        let date1 = new Date(data[x].date.replace(".",""));
+        let date2 = new Date(data[x+1].date.replace(".",""));
+        if(date1 < date2){
+          tampon = data[x];
+          data[x] = data[x+1];
+          data[x+1] = tampon;
+          x = 0;
+        }else{
+          x++;
+        }
+      }else{
+        x = data.length + 1;
+      }
+    }
   return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
 
