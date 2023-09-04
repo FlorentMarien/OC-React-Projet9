@@ -22,6 +22,7 @@ const row = (bill) => {
 const rows = (data) => {
   let tampon = 0;
   let x = 0;
+  if(data !== undefined){
     while(x < data.length){
       if(data[x+1] !== undefined){
         
@@ -40,6 +41,9 @@ const rows = (data) => {
       }
     }
   return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  }else{
+    return ""
+  }
 }
 
 export default ({ data: bills, loading, error }) => {
