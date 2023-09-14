@@ -227,7 +227,7 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
       const dashboard = new Dashboard({
         document, onNavigate, store, bills, localStorage: window.localStorage
       })
-
+      
       const handleClickIconEye = jest.fn(dashboard.handleClickIconEye)
       const eye = screen.getByTestId('icon-eye-d')
       eye.addEventListener('click', handleClickIconEye)
@@ -289,7 +289,7 @@ describe("Given I am a user connected as Admin", () => {
     })
 
     test("fetches messages from an API and fails with 500 message error", async () => {
-
+      console.log(mockStore.bills().list())
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {

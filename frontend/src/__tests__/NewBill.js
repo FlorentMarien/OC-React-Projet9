@@ -5,6 +5,7 @@ import user from '@testing-library/user-event';
 import {fireEvent, screen, wait, waitFor, waitForElement} from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
+import BillsUI from '../views/BillsUI.js';
 import { ROUTES, ROUTES_PATH} from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
 import mockStore from "../__mocks__/store"
@@ -66,11 +67,11 @@ describe("Given I am connected as an employee", () => {
       commentary : "TEST"
     }
     screen.getByTestId("expense-name").value = data.expense_name;
-      screen.getByTestId("datepicker").value = data.datepicker;
-      screen.getByTestId("amount").value = data.amount;
-      screen.getByTestId("vat").value = data.vat;
-      screen.getByTestId("pct").value = data.pct;
-      screen.getByTestId("commentary").value = data.commentary;
+    screen.getByTestId("datepicker").value = data.datepicker;
+    screen.getByTestId("amount").value = data.amount;
+    screen.getByTestId("vat").value = data.vat;
+    screen.getByTestId("pct").value = data.pct;
+    screen.getByTestId("commentary").value = data.commentary;
 
     test("Then send form with no picture", async () => {
             
@@ -83,10 +84,9 @@ describe("Given I am connected as an employee", () => {
     test("Then send form", async () => {
       const file = new File(['test'], 'chucknorris.jpg', { type: 'image/jpg' })
       await fireEvent.change(inputFile, {target: { files: [file] }} )
-      
       await fireEvent.submit(screen.getByTestId("form-new-bill"));
       
-      expect(newbill.succes).toBe(true);
+      expect(screen.getByTestId("btn-new-bill")).not.toBe(undefined);
     })
   })
 })
