@@ -32,7 +32,6 @@ describe("Given I am connected as an employee", () => {
       //to-do write expect expression
       expect(windowIcon.classList[0]).toBe("active-icon");
     })
-    
     test("Then open new bill", async () => {
       
       const store = null
@@ -40,7 +39,6 @@ describe("Given I am connected as an employee", () => {
       test.handleClickNewBill();
       await waitFor(() => expect(screen.queryByTestId("form-new-bill")).not.toBe(null));
     })
-    
     test("Then open modale picture of bill", async () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
@@ -60,7 +58,7 @@ describe("Given I am connected as an employee", () => {
       userEvent.click(eye[0])
       expect(handleClickIconEye).toHaveBeenCalled()
     })
-    test("Then bills should be ordered from earliest to latest", async () => {
+    test("Then get bill", async () => {
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
@@ -69,12 +67,11 @@ describe("Given I am connected as an employee", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
-      //let store = localStoreMock.bills()
       const test = new Bills({
         document, onNavigate, store:localStoreMock, localStorage: window.localStorage
       })
-      let answer = await test.getBills()
-      expect(answer).not.toBe(undefined)
+      let getbill = await test.getBills()
+      expect(getbill).not.toBe(undefined)
     })
     test("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills })
@@ -83,6 +80,5 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
     })
-    
   })
 })

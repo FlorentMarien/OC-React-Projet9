@@ -1,11 +1,9 @@
 /**
  * @jest-environment jsdom
  */
-import user from '@testing-library/user-event';
-import {fireEvent, screen, wait, waitFor, waitForElement} from "@testing-library/dom"
+import {fireEvent, screen} from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
-import BillsUI from '../views/BillsUI.js';
 import { ROUTES, ROUTES_PATH} from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
 import mockStore from "../__mocks__/store"
@@ -30,29 +28,24 @@ describe("Given I am connected as an employee", () => {
       await fireEvent.change(inputFile, {target: { files: [file] }} );
       expect(typeok.includes(inputFile.files[0].type)).toBe(true);
     })
-
     test("Then if file type is not ok", async () => {
       const file = new File(['test'], 'chucknorris.jpzzzg', { type: 'image/jpzzzg' })
       await fireEvent.change(inputFile, {target: { files: [file] }} );
       expect(typeok.includes(inputFile.files[0].type)).not.toBe(true);
     })
-
     test("Then if multiple file blocked", async () => {
       const file = new File(['test'], 'chucknorris.jpg', { type: 'image/jpg' })
       await fireEvent.change(inputFile, {target: { files: [file,file] }} );
       expect(inputFile.files.length).not.toBe(1);
     })
-
     test("Then if jpeg img is ok", () => {
       let img = {name:"Photodevacance",type:"image/jpeg"};
       expect(typeok.includes(img.type)).toBe(true);
     })
-
     test("Then if png img is ok", () => {
       let img = {name:"Photodevacance",type:"image/png"};
       expect(typeok.includes(img.type)).toBe(true);
     })
-
     test("Then if type of img is not ok", () => {
       let img = {name:"Photodevacance",type:"image/bmp"};
       expect(typeok.includes(img.type)).not.toBe(true);
@@ -80,7 +73,6 @@ describe("Given I am connected as an employee", () => {
       
       expect(newbill.succes).not.toBe(true);
     })
-    
     test("Then send form", async () => {
       const file = new File(['test'], 'chucknorris.jpg', { type: 'image/jpg' })
       await fireEvent.change(inputFile, {target: { files: [file] }} )
